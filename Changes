@@ -1,0 +1,262 @@
+2008-09-09  CVS: new release
+
+	* Release: 0.0.23
+
+2008-09-09 15:29  squinney
+
+	* Support fields in config.mk which use the ling-continuation
+	  backslash. Improved handling of attributes which can be either
+	  strings or array-refs so that they get properly transformed into
+	  array-refs. Removed the override of the new() method as it is no
+	  longer required. Made the LCFG::Build::PkgSpec class immutable to
+	  get a speed gain. Improved the README and other docs. Updated
+	  various Moose dependencies to ensure the code works correctly
+
+2008-07-23 11:56  squinney
+
+	* Release: 0.0.22
+
+2008-07-23 11:56  squinney
+
+	* If not specified search the current working directory for the
+	  config.mk when using lcfg-cfg2meta
+
+2008-07-01 15:37  squinney
+
+	* Release: 0.0.21
+
+2008-07-01 15:36  squinney
+
+	* Updated the tests which go with the config.mk parser
+
+2008-07-01 15:32  squinney
+
+	* Release: 0.0.20
+
+2008-07-01 15:32  squinney
+
+	* When parsing a config.mk make the default license GPLv2 to be
+	  redhat compatible, also removed the specfile from the translate
+	  list and turned on the gencmake option
+
+2008-07-01 11:37  squinney
+
+	* Release: 0.0.19
+
+2008-07-01 11:37  squinney
+
+	* Modified specfile to avoid installing *.in files
+
+2008-07-01 09:53  squinney
+
+	* Release: 0.0.18
+
+2008-07-01 09:51  squinney
+
+	* Increased dependency on Moose to 0.51 to get consistent error
+	  messages
+
+2008-07-01 09:51  squinney
+
+	* Moved to *.in files for perl libraries and executables
+
+2008-07-01 09:51  squinney
+
+	* Moved to *.in files for perl libraries and executables
+
+2008-07-01 09:34  squinney
+
+	* Release: 0.0.17
+
+2008-06-05 15:04  squinney
+
+	* Release: 0.0.16
+
+2008-06-05 15:03  squinney
+
+	* Added clone method to LCFG::Build::PkgSpec and accompanying tests
+
+2008-06-04 16:35  squinney
+
+	* renamed perl-LCFG-Build-PkgSpec.spec to LCFG-Build-PkgSpec.spec
+
+2008-06-04 15:01  squinney
+
+	* updated metadata files
+
+2008-06-04 15:00  squinney
+
+	* Release: 0.0.15
+
+2008-06-04 15:00  squinney
+
+	* made build info attribute lazy
+
+2008-06-04 14:47  squinney
+
+	* updated meta files
+
+2008-06-04 14:47  squinney
+
+	* updated version string everywhere
+
+2008-06-04 14:43  squinney
+
+	* Release: 0.0.14
+
+2008-06-04 14:37  squinney
+
+	* Added build info section support for lcfg metadata file
+
+2008-06-03 13:40  squinney
+
+	* Release: 0.0.13
+
+2008-06-03 13:17  squinney
+
+	* Added dev_version and update_release methods
+
+2008-05-28 12:29  squinney
+
+	* Release: 0.0.12
+
+2008-05-28 12:27  squinney
+
+	* [no log message]
+
+2008-05-28 12:24  squinney
+
+	* Updated dependencies on Moose and MooseX::AttributeHelpers
+
+2008-05-28 12:17  squinney
+
+	* updated specfile
+
+2008-05-28 12:16  squinney
+
+	* Release: 0.0.11
+
+2008-05-28 12:15  squinney
+
+	* Renamed the smallest part of the version from 'level' to 'micro'.
+	  Added ability to query the individual parts of the version. Added
+	  an attribute to store the metafile name which can be used as a
+	  default when saving out the changed spec
+
+2008-05-07 11:46  squinney
+
+	* version is now 0.0.10
+
+2008-05-07 11:45  squinney
+
+	* Release: 0.0.10
+
+2008-05-07 11:45  squinney
+
+	* Added new tarname() method and associated tests and docs
+
+2008-04-30 15:29  squinney
+
+	* Added fullname method
+
+2008-03-06 09:45  squinney
+
+	* Release: 0.0.7
+
+2008-03-06 09:40  squinney
+
+	* Added support for dev versions
+
+2008-03-04 10:06  squinney
+
+	* Release: 0.0.6
+
+2008-03-04 10:06  squinney
+
+	* Added support for setting a list of files to translate @FOO@
+	  macros
+
+2008-03-03 12:09  squinney
+
+	* Release: 0.0.5
+
+2008-03-03 12:08  squinney
+
+	* new release number
+
+2008-03-03 12:02  squinney
+
+	* Improved error message when creating a new pkgspec object and a
+	  required parameter is missing
+
+2008-03-03 11:57  squinney
+
+	* Minimum version for Moose is now 0.38. This allows the setting of
+	  the release field as either undef or a validated string through
+	  the Maybe[] type syntax. Various tests were also updated as the
+	  error strings had changed slightly.
+
+2008-02-28 12:09  squinney
+
+	* Release: 0.0.4
+
+2008-02-28 12:08  squinney
+
+	* Updated version
+
+2008-02-28 12:08  squinney
+
+	* Added new --set, --skeleton options to lcfg-pkgcfg. Also added
+	  the ability to clone metadata files.
+
+2008-02-28 12:08  squinney
+
+	* Added new --set, --skeleton options to lcfg-pkgcfg. Also added
+	  the ability to clone metadata files.
+
+2008-02-20 14:03  squinney
+
+	* Release: 0.0.3
+
+2008-02-20 14:02  squinney
+
+	* Set version to 0.0.3
+
+2008-02-20 14:02  squinney
+
+	* Added dependency on Date::Format
+
+2008-02-20 14:02  squinney
+
+	* Added dependency on Date::Format
+
+2008-02-20 13:52  squinney
+
+	* Release: 0.0.2
+
+2008-02-20 13:51  squinney
+
+	* Added version control information to lcfg.yml
+
+2008-02-20 13:49  squinney
+
+	* updated tests to deal with the new date attribute handling
+
+2008-02-20 13:47  squinney
+
+	* Improved date handling, it now defaults to 'DD/MM/YY HH:MM:SS'.
+	  Added update_date() method and made the update_major,
+	  update_minor and update_level methods use it
+
+2008-02-20 13:45  squinney
+
+	* Added Changes file
+
+2008-02-19 16:58  squinney
+
+	* Added lcfg.yml
+
+2008-02-19 16:38  squinney
+
+	* First release of LCFG::Build::PkgSpec
+

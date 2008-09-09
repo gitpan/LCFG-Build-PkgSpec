@@ -1,0 +1,26 @@
+use Module::Build;
+
+my $build = Module::Build->new(
+    module_name   => 'LCFG::Build::PkgSpec',
+    dist_abstract => 'Object-oriented interface to LCFG build metadata',
+    dist_author   => 'Stephen Quinney <squinney@inf.ed.ac.uk>',
+    dist_version  => '0.0.23',
+    license => 'gpl',
+    requires => {
+        'perl'                      => '5.6.1',
+        'Date::Format'              => '1.16',
+        'Moose'                     => '0.57',
+        'MooseX::AttributeHelpers'  => '0.13',
+        'YAML::Syck'                => '0.98',
+        'Data::Structure::Util'     => '0.12',
+        'Pod::Usage'                => '0',
+    },
+    build_requires => {
+        'Test::More'        => 0,
+        'Test::Differences' => 0,
+        'Test::Exception'   => 0,
+    },
+    add_to_cleanup => [ 'LCFG-Build-PkgSpec-*', 'MANIFEST.bak', 'Changes.bak' ],
+    create_makefile_pl => 'traditional',
+);
+$build->create_build_script;

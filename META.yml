@@ -1,0 +1,29 @@
+---
+name: LCFG-Build-PkgSpec
+version: 0.0.23
+author:
+  - 'Stephen Quinney <squinney@inf.ed.ac.uk>'
+abstract: Object-oriented interface to LCFG build metadata
+license: gpl
+resources:
+  license: http://www.opensource.org/licenses/gpl-license.php
+requires:
+  Data::Structure::Util: 0.12
+  Date::Format: 1.16
+  Moose: 0.57
+  MooseX::AttributeHelpers: 0.13
+  Pod::Usage: 0
+  YAML::Syck: 0.98
+  perl: 5.6.1
+build_requires:
+  Test::Differences: 0
+  Test::Exception: 0
+  Test::More: 0
+provides:
+  LCFG::Build::PkgSpec:
+    file: lib/LCFG/Build/PkgSpec.pm
+    version: 0.0.23
+generated_by: Module::Build version 0.2807
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
