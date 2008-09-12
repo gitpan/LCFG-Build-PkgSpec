@@ -2,13 +2,13 @@ package LCFG::Build::PkgSpec; # -*-cperl-*-
 use strict;
 use warnings;
 
-# $Id: PkgSpec.pm.in,v 1.3 2008/09/09 14:29:50 squinney Exp $
+# $Id: PkgSpec.pm.in,v 1.4 2008/09/10 13:59:47 squinney Exp $
 # $Source: /disk/cvs/dice/LCFG-Build-PkgSpec/lib/LCFG/Build/PkgSpec.pm.in,v $
-# $Revision: 1.3 $
+# $Revision: 1.4 $
 # $HeadURL$
-# $Date: 2008/09/09 14:29:50 $
+# $Date: 2008/09/10 13:59:47 $
 
-our $VERSION = '0.0.23';
+our $VERSION = '0.0.24';
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -435,7 +435,7 @@ LCFG::Build::PkgSpec - Object-oriented interface to LCFG build metadata
 
 =head1 VERSION
 
-This documentation refers to LCFG::Build::PkgSpec version 0.0.23
+This documentation refers to LCFG::Build::PkgSpec version 0.0.24
 
 =head1 SYNOPSIS
 
@@ -696,9 +696,9 @@ in the build information.
 
 =head1 DEPENDENCIES
 
-This module is Moose powered. It also requires Data::Structure::Util
+This module is L<Moose> powered. It also requires L<Data::Structure::Util>
 and if you want to parse and write LCFG metadata files you will need
-YAML::Syck.
+L<YAML::Syck>.
 
 =head1 SEE ALSO
 

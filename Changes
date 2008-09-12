@@ -1,4 +1,18 @@
-2008-09-09  CVS: new release
+2008-09-12  CVS: new release
+
+	* Release: 0.0.24
+
+2008-09-12 15:28  squinney
+
+	* Switched file path handling in lcfg-cfg2meta and lcfg-pkgcfg to
+	  using File::Spec
+
+2008-09-10 14:59  squinney
+
+	* Small documentation tweaks to get links to other modules
+	  automatically generated
+
+2008-09-09 15:30  squinney
 
 	* Release: 0.0.23
 

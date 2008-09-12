@@ -2,17 +2,18 @@
 use strict;
 use warnings;
 
-# $Id: lcfg-pkgcfg.in,v 1.2 2008/09/09 14:29:50 squinney Exp $
+# $Id: lcfg-pkgcfg.in,v 1.4 2008/09/12 14:28:16 squinney Exp $
 # $Source: /disk/cvs/dice/LCFG-Build-PkgSpec/bin/lcfg-pkgcfg.in,v $
-# $Revision: 1.2 $
+# $Revision: 1.4 $
 # $HeadURL$
-# $Date: 2008/09/09 14:29:50 $
+# $Date: 2008/09/12 14:28:16 $
 
 use LCFG::Build::PkgSpec;
+use File::Spec ();
 use Getopt::Long ();
 use Pod::Usage ();
 
-our $VERSION = '0.0.23';
+our $VERSION = '0.0.24';
 
 my ( $get, %set, $in, $out, $skeleton, $help );
 Getopt::Long::GetOptions('get=s'    => \$get,
@@ -35,7 +36,7 @@ if ( !defined $in ) {
 
 my $infile;
 if ( -d $in ) {
-    $infile = join '/', $in, 'lcfg.yml';
+    $infile = File::Spec->catfile( $in, 'lcfg.yml' );
 }
 else {
     $infile = $in;
@@ -44,7 +45,7 @@ else {
 my $outfile;
 if ( defined $out ) {
     if ( -d $out ) {
-        $outfile = join '/', $out, 'lcfg.yml';
+        $outfile = File::Spec->catfile( $out, 'lcfg.yml' );
     }
     else {
         $outfile = $out;
@@ -101,7 +102,7 @@ lcfg-pkgcfg - A tool for querying LCFG build metadata files
 
 =head1 VERSION
 
-This documentation refers to lcfg-reltool version 0.0.23
+This documentation refers to lcfg-reltool version 0.0.24
 
 =head1 SYNOPSIS
 
@@ -158,7 +159,7 @@ metadata file from a CPAN metadata file (META.yml).
 =item --get
 
 Specify the name of the attribute to query. See
-LCFG::Build::PkgSpec(3) for the full list of attributes. Attributes
+L<LCFG::Build::PkgSpec> for the full list of attributes. Attributes
 which are stored as arrays, such as the author and platforms lists,
 will be flattened to a string (e.g. "fedora5, fedora6,
 scientificlinux5").
@@ -166,7 +167,7 @@ scientificlinux5").
 =item --set
 
 Set the value for a attribute in the LCFG build package specification,
-see LCFG::Build::PkgSpec(3) for the full list of attributes. It is
+see L<LCFG::Build::PkgSpec> for the full list of attributes. It is
 possible to set any number of key-value pairs at the same time. Each
 pair should be separated by just an '=' sign and preceded by the
 I<--set> option.
@@ -199,7 +200,7 @@ This application requires L<LCFG::Build::PkgSpec>
 
 =head1 SEE ALSO
 
-lcfg-cfg2meta(1), LCFG::Build::PkgSpec(3), LCFG::Build::Tools(3)
+lcfg-cfg2meta(1), L<LCFG::Build::PkgSpec>, L<LCFG::Build::Tools>
 
 =head1 PLATFORMS
 

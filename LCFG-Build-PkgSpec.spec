@@ -1,10 +1,10 @@
 Name:           perl-LCFG-Build-PkgSpec
-Version:        0.0.23
+Version:        0.0.24
 Release:        1
 Summary:        Object-oriented interface to LCFG build metadata
 License:        GPLv2
 Group:          Development/Libraries
-Source0:        LCFG-Build-PkgSpec-0.0.23.tar.gz
+Source0:        LCFG-Build-PkgSpec-0.0.24.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  perl >= 1:5.6.1
@@ -68,7 +68,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Tue Sep 09 2008 <<<< Release: 0.0.23 >>>>
+* Fri Sep 12 2008 <<<< Release: 0.0.24 >>>>
+
+* Fri Sep 12 2008 15:28 squinney
+- Switched file path handling in lcfg-cfg2meta and lcfg-pkgcfg to
+  using File::Spec
+
+* Wed Sep 10 2008 14:59 squinney
+- Small documentation tweaks to get links to other modules
+  automatically generated
+
+* Tue Sep 09 2008 15:30 squinney
 
 * Tue Sep 09 2008 15:29 squinney
 - Support fields in config.mk which use the ling-continuation
