@@ -1,10 +1,10 @@
 Name:           perl-LCFG-Build-PkgSpec
-Version:        0.0.24
+Version:        0.0.25
 Release:        1
 Summary:        Object-oriented interface to LCFG build metadata
 License:        GPLv2
 Group:          Development/Libraries
-Source0:        LCFG-Build-PkgSpec-0.0.24.tar.gz
+Source0:        LCFG-Build-PkgSpec-0.0.25.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  perl >= 1:5.6.1
@@ -68,7 +68,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Fri Sep 12 2008 <<<< Release: 0.0.24 >>>>
+* Wed Oct 29 2008 <<<< Release: 0.0.25 >>>>
+
+* Wed Oct 29 2008 14:24 squinney
+- Fixed a small problem with parsing the NAME field in a config.mk
+  file
+
+* Fri Sep 12 2008 15:28 squinney
 
 * Fri Sep 12 2008 15:28 squinney
 - Switched file path handling in lcfg-cfg2meta and lcfg-pkgcfg to

@@ -8,7 +8,7 @@ use warnings;
 # $HeadURL$
 # $Date: 2008/09/12 14:28:16 $
 
-our $VERSION = '0.0.24';
+our $VERSION = '0.0.25';
 
 use File::Basename       ();
 use File::Spec           ();
@@ -58,7 +58,7 @@ lcfg-cfg2meta - Tool to convert LCFG config.mk into new metadata file
 
 =head1 VERSION
 
-This documentation refers to lcfg-cfg2meta version 0.0.24
+This documentation refers to lcfg-cfg2meta version 0.0.25
 
 =head1 SYNOPSIS
 

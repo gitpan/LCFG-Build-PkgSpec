@@ -2,13 +2,13 @@ package LCFG::Build::PkgSpec; # -*-cperl-*-
 use strict;
 use warnings;
 
-# $Id: PkgSpec.pm.in,v 1.4 2008/09/10 13:59:47 squinney Exp $
+# $Id: PkgSpec.pm.in,v 1.5 2008/10/29 14:24:13 squinney Exp $
 # $Source: /disk/cvs/dice/LCFG-Build-PkgSpec/lib/LCFG/Build/PkgSpec.pm.in,v $
-# $Revision: 1.4 $
+# $Revision: 1.5 $
 # $HeadURL$
-# $Date: 2008/09/10 13:59:47 $
+# $Date: 2008/10/29 14:24:13 $
 
-our $VERSION = '0.0.24';
+our $VERSION = '0.0.25';
 
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -266,7 +266,14 @@ sub new_from_cfgmk {
                 $spec{platforms} = [@platforms];
             }
             elsif ( $key eq 'NAME' ) {
-                ( $spec{base}, my $compname ) = split /-/, $value;
+                my $compname;
+                if ( $value =~ m/^(.+?)-(.+?)$/ ) {
+                    ( $spec{base}, $compname ) = ( $1, $2 );
+                }
+                else {
+                    $compname = $value;
+                }
+
                 if ( $compname ne '$(COMP)' ) {
                     $spec{name} = $compname;
                 }
@@ -435,7 +442,7 @@ LCFG::Build::PkgSpec - Object-oriented interface to LCFG build metadata
 
 =head1 VERSION
 
-This documentation refers to LCFG::Build::PkgSpec version 0.0.24
+This documentation refers to LCFG::Build::PkgSpec version 0.0.25
 
 =head1 SYNOPSIS
 
