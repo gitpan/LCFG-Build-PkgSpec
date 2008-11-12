@@ -1,10 +1,10 @@
 Name:           perl-LCFG-Build-PkgSpec
-Version:        0.0.25
+Version:        0.0.26
 Release:        1
 Summary:        Object-oriented interface to LCFG build metadata
 License:        GPLv2
 Group:          Development/Libraries
-Source0:        LCFG-Build-PkgSpec-0.0.25.tar.gz
+Source0:        LCFG-Build-PkgSpec-0.0.26.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  perl >= 1:5.6.1
@@ -68,7 +68,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Wed Oct 29 2008 <<<< Release: 0.0.25 >>>>
+* Wed Nov 12 2008 <<<< Release: 0.0.26 >>>>
+
+* Wed Nov 12 2008 14:26 squinney
+- Switched to using is_deeply() in 09_clone.t test. The
+  eq_or_diff() method in Test::Differences does not handle
+  comparing an integer with a string (e.g. 1 is considered to not
+  equal '1'. See http://rt.cpan.org/Public/Bug/Display.html?id=3029
+
+* Wed Nov 12 2008 14:24 squinney
+- The schema is now explicitly an integer.
+
+* Wed Oct 29 2008 14:24 squinney
 
 * Wed Oct 29 2008 14:24 squinney
 - Fixed a small problem with parsing the NAME field in a config.mk

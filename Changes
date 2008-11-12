@@ -1,4 +1,19 @@
-2008-10-29  CVS: new release
+2008-11-12  CVS: new release
+
+	* Release: 0.0.26
+
+2008-11-12 14:26  squinney
+
+	* Switched to using is_deeply() in 09_clone.t test. The
+	  eq_or_diff() method in Test::Differences does not handle
+	  comparing an integer with a string (e.g. 1 is considered to not
+	  equal '1'. See http://rt.cpan.org/Public/Bug/Display.html?id=3029
+
+2008-11-12 14:24  squinney
+
+	* The schema is now explicitly an integer.
+
+2008-10-29 14:24  squinney
 
 	* Release: 0.0.25
 

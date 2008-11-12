@@ -14,7 +14,7 @@ my $clone = $spec->clone;
 
 isnt( $spec, $clone, "needs to be a different reference" );
 
-eq_or_diff $spec, $clone, "A clone should be the same data as the original";
+is_deeply( $spec, $clone, "A clone should be the same data as the original" );
 
 $clone->update_release;
 
