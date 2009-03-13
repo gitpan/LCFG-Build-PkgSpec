@@ -28,7 +28,7 @@ To build this module you will need the following:
 
 To use this module you will need the following:
 
-        Date::Format >= 1.16
+        DateTime
         Data::Structure::Util >= 0.12
         Moose >= 0.57
         MooseX::AttributeHelpers >= 0.13

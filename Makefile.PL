@@ -14,7 +14,7 @@ WriteMakefile
                            'Test::Exception' => 0,
                            'Pod::Usage' => '0',
                            'YAML::Syck' => '0.98',
-                           'Date::Format' => '1.16',
+                           'DateTime' => 0,
                            'Test::More' => 0,
                            'Test::Differences' => 0,
                            'MooseX::AttributeHelpers' => '0.13',

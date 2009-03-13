@@ -1,10 +1,10 @@
 Name:           perl-LCFG-Build-PkgSpec
-Version:        0.0.26
+Version:        0.0.29
 Release:        1
 Summary:        Object-oriented interface to LCFG build metadata
 License:        GPLv2
 Group:          Development/Libraries
-Source0:        LCFG-Build-PkgSpec-0.0.26.tar.gz
+Source0:        LCFG-Build-PkgSpec-0.0.29.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  perl >= 1:5.6.1
@@ -15,12 +15,11 @@ BuildRequires:  perl(MooseX::AttributeHelpers) >= 0.13
 BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(YAML::Syck) >= 0.98
-BuildRequires:  perl(Date::Format) >= 1.16
+BuildRequires:  perl(DateTime)
 Requires:       perl(Data::Structure::Util) >= 0.12
 Requires:       perl(Moose) >= 0.57
 Requires:       perl(MooseX::AttributeHelpers) >= 0.13
 Requires:       perl(YAML::Syck) >= 0.98
-Requires:       perl(Date::Format) >= 1.16
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
@@ -68,37 +67,78 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Wed Nov 12 2008 <<<< Release: 0.0.26 >>>>
+* Fri Mar 13 2009 SVN: new release
+
+* Fri Mar 13 2009 14:53 squinney@INF.ED.AC.UK
+- Build.PL.in, LCFG-Build-PkgSpec.spec, META.yml.in, Makefile.PL,
+  README, lib/LCFG/Build/PkgSpec.pm.in: Switched from Date::Format
+  to DateTime
+
+* Wed Mar 11 2009 13:25 squinney@INF.ED.AC.UK
+- bin/lcfg-cfg2meta.in, bin/lcfg-pkgcfg.in,
+  lib/LCFG/Build/PkgSpec.pm.in: Set svn:keywords on the
+  LCFG::Build::PkgSpec Perl modules and scripts
+
+* Mon Mar 09 2009 16:43 squinney
+- lcfg.yml: Removed hardwired version-control type from lcfg.yml to
+  allow future transfer to subversion
+
+* Mon Mar 09 2009 12:44 squinney
+- Changes, lcfg.yml: Release: 0.0.28
+
+* Mon Mar 09 2009 12:44 squinney
+- lcfg.yml, t/06_pkgspec_cfg.t: Updated tests in 06_pkgspec_cfg.t
+  to reflect the fact that we no longer hardwire the
+  version-control system type
+
+* Mon Mar 09 2009 12:42 squinney
+- Changes, lcfg.yml: Release: 0.0.27
+
+* Mon Mar 09 2009 12:42 squinney
+- lib/LCFG/Build/PkgSpec.pm.in: lib/LCFG/Build/PkgSpec.pm.in
+  (new_from_cfgmk): No longer hardwire the version-control system
+  type to be CVS when converting config.mk files
 
 * Wed Nov 12 2008 14:26 squinney
-- Switched to using is_deeply() in 09_clone.t test. The
-  eq_or_diff() method in Test::Differences does not handle
+- Changes, lcfg.yml: Release: 0.0.26
+
+* Wed Nov 12 2008 14:26 squinney
+- t/09_clone.t: Switched to using is_deeply() in 09_clone.t test.
+  The eq_or_diff() method in Test::Differences does not handle
   comparing an integer with a string (e.g. 1 is considered to not
   equal '1'. See http://rt.cpan.org/Public/Bug/Display.html?id=3029
 
 * Wed Nov 12 2008 14:24 squinney
-- The schema is now explicitly an integer.
+- lib/LCFG/Build/PkgSpec.pm.in: The schema is now explicitly an
+  integer.
 
 * Wed Oct 29 2008 14:24 squinney
+- Changes, lcfg.yml: Release: 0.0.25
 
 * Wed Oct 29 2008 14:24 squinney
-- Fixed a small problem with parsing the NAME field in a config.mk
-  file
+- lib/LCFG/Build/PkgSpec.pm.in: Fixed a small problem with parsing
+  the NAME field in a config.mk file
 
-* Fri Sep 12 2008 15:28 squinney
+* Fri Sep 12 2008 14:28 squinney
+- Changes, lcfg.yml: Release: 0.0.24
 
-* Fri Sep 12 2008 15:28 squinney
-- Switched file path handling in lcfg-cfg2meta and lcfg-pkgcfg to
-  using File::Spec
+* Fri Sep 12 2008 14:28 squinney
+- bin/lcfg-cfg2meta.in, bin/lcfg-pkgcfg.in: Switched file path
+  handling in lcfg-cfg2meta and lcfg-pkgcfg to using File::Spec
 
-* Wed Sep 10 2008 14:59 squinney
-- Small documentation tweaks to get links to other modules
-  automatically generated
+* Wed Sep 10 2008 13:59 squinney
+- bin/lcfg-pkgcfg.in, lib/LCFG/Build/PkgSpec.pm.in: Small
+  documentation tweaks to get links to other modules automatically
+  generated
 
-* Tue Sep 09 2008 15:30 squinney
+* Tue Sep 09 2008 14:30 squinney
+- Changes, lcfg.yml: Release: 0.0.23
 
-* Tue Sep 09 2008 15:29 squinney
-- Support fields in config.mk which use the ling-continuation
+* Tue Sep 09 2008 14:29 squinney
+- Build.PL.in, LCFG-Build-PkgSpec.spec, META.yml, META.yml.in,
+  Makefile.PL, README, bin/lcfg-cfg2meta.in, bin/lcfg-pkgcfg.in,
+  lcfg.yml, lib/LCFG/Build/PkgSpec.pm.in, t/04_pkgspec_badattr.t:
+  Support fields in config.mk which use the ling-continuation
   backslash. Improved handling of attributes which can be either
   strings or array-refs so that they get properly transformed into
   array-refs. Removed the override of the new() method as it is no
@@ -106,175 +146,245 @@ rm -rf $RPM_BUILD_ROOT
   get a speed gain. Improved the README and other docs. Updated
   various Moose dependencies to ensure the code works correctly
 
-* Wed Jul 23 2008 11:56 squinney
+* Wed Jul 23 2008 10:56 squinney
+- Changes, lcfg.yml: Release: 0.0.22
 
-* Wed Jul 23 2008 11:56 squinney
-- If not specified search the current working directory for the
-  config.mk when using lcfg-cfg2meta
+* Wed Jul 23 2008 10:56 squinney
+- bin/lcfg-cfg2meta.in: If not specified search the current working
+  directory for the config.mk when using lcfg-cfg2meta
 
-* Tue Jul 01 2008 15:37 squinney
+* Tue Jul 01 2008 14:37 squinney
+- Changes, lcfg.yml: Release: 0.0.21
 
-* Tue Jul 01 2008 15:36 squinney
-- Updated the tests which go with the config.mk parser
+* Tue Jul 01 2008 14:36 squinney
+- t/06_pkgspec_cfg.t: Updated the tests which go with the config.mk
+  parser
 
-* Tue Jul 01 2008 15:32 squinney
+* Tue Jul 01 2008 14:32 squinney
+- Changes, lcfg.yml: Release: 0.0.20
 
-* Tue Jul 01 2008 15:32 squinney
-- When parsing a config.mk make the default license GPLv2 to be
-  redhat compatible, also removed the specfile from the translate
-  list and turned on the gencmake option
+* Tue Jul 01 2008 14:32 squinney
+- lib/LCFG/Build/PkgSpec.pm.in: When parsing a config.mk make the
+  default license GPLv2 to be redhat compatible, also removed the
+  specfile from the translate list and turned on the gencmake
+  option
 
-* Tue Jul 01 2008 11:37 squinney
+* Tue Jul 01 2008 10:37 squinney
+- Build.PL.in, Changes, lcfg.yml: Release: 0.0.19
 
-* Tue Jul 01 2008 11:37 squinney
-- Modified specfile to avoid installing *.in files
+* Tue Jul 01 2008 10:37 squinney
+- LCFG-Build-PkgSpec.spec: Modified specfile to avoid installing
+- .in files
 
-* Tue Jul 01 2008 09:53 squinney
+* Tue Jul 01 2008 08:53 squinney
+- Changes, lcfg.yml: Release: 0.0.18
 
-* Tue Jul 01 2008 09:51 squinney
-- Increased dependency on Moose to 0.51 to get consistent error
-  messages
+* Tue Jul 01 2008 08:51 squinney
+- LCFG-Build-PkgSpec.spec, lcfg.yml: Increased dependency on Moose
+  to 0.51 to get consistent error messages
 
-* Tue Jul 01 2008 09:51 squinney
-- Moved to *.in files for perl libraries and executables
+* Tue Jul 01 2008 08:51 squinney
+- Build.PL, Build.PL.in, bin/lcfg-cfg2meta, bin/lcfg-cfg2meta.in,
+  bin/lcfg-pkgcfg, bin/lcfg-pkgcfg.in, lib/LCFG/Build/PkgSpec.pm,
+  lib/LCFG/Build/PkgSpec.pm.in: Moved to *.in files for perl
+  libraries and executables
 
-* Tue Jul 01 2008 09:51 squinney
-- Moved to *.in files for perl libraries and executables
+* Tue Jul 01 2008 08:34 squinney
+- Build.PL, Changes, LCFG-Build-PkgSpec.spec, lcfg.yml,
+  lib/LCFG/Build/PkgSpec.pm, t/05_pkgspec_version.t: Release:
+  0.0.17
 
-* Tue Jul 01 2008 09:34 squinney
+* Thu Jun 05 2008 14:04 squinney
+- Changes, lcfg.yml: Release: 0.0.16
 
-* Thu Jun 05 2008 15:04 squinney
+* Thu Jun 05 2008 14:03 squinney
+- Build.PL, LCFG-Build-PkgSpec.spec, MANIFEST, META.yml,
+  Makefile.PL, README, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg,
+  lcfg.yml, lib/LCFG/Build/PkgSpec.pm, t/09_clone.t: Added clone
+  method to LCFG::Build::PkgSpec and accompanying tests
 
-* Thu Jun 05 2008 15:03 squinney
-- Added clone method to LCFG::Build::PkgSpec and accompanying tests
+* Wed Jun 04 2008 15:35 squinney
+- perl-LCFG-Build-PkgSpec.spec: renamed
+  perl-LCFG-Build-PkgSpec.spec to LCFG-Build-PkgSpec.spec
 
-* Wed Jun 04 2008 16:35 squinney
-- renamed perl-LCFG-Build-PkgSpec.spec to LCFG-Build-PkgSpec.spec
+* Wed Jun 04 2008 14:01 squinney
+- META.yml, Makefile.PL, README: updated metadata files
 
-* Wed Jun 04 2008 15:01 squinney
-- updated metadata files
+* Wed Jun 04 2008 14:00 squinney
+- Changes, lcfg.yml: Release: 0.0.15
 
-* Wed Jun 04 2008 15:00 squinney
+* Wed Jun 04 2008 14:00 squinney
+- Build.PL, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg,
+  lib/LCFG/Build/PkgSpec.pm, perl-LCFG-Build-PkgSpec.spec: made
+  build info attribute lazy
 
-* Wed Jun 04 2008 15:00 squinney
-- made build info attribute lazy
+* Wed Jun 04 2008 13:47 squinney
+- META.yml, README: updated meta files
 
-* Wed Jun 04 2008 14:47 squinney
-- updated meta files
+* Wed Jun 04 2008 13:47 squinney
+- Build.PL, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg,
+  lib/LCFG/Build/PkgSpec.pm, perl-LCFG-Build-PkgSpec.spec: updated
+  version string everywhere
 
-* Wed Jun 04 2008 14:47 squinney
-- updated version string everywhere
+* Wed Jun 04 2008 13:43 squinney
+- Changes, lcfg.yml: Release: 0.0.14
 
-* Wed Jun 04 2008 14:43 squinney
+* Wed Jun 04 2008 13:37 squinney
+- lcfg.yml, lib/LCFG/Build/PkgSpec.pm: Added build info section
+  support for lcfg metadata file
 
-* Wed Jun 04 2008 14:37 squinney
-- Added build info section support for lcfg metadata file
+* Tue Jun 03 2008 12:40 squinney
+- Changes, lcfg.yml: Release: 0.0.13
 
-* Tue Jun 03 2008 13:40 squinney
+* Tue Jun 03 2008 12:17 squinney
+- Build.PL, META.yml, README, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg,
+  lib/LCFG/Build/PkgSpec.pm, perl-LCFG-Build-PkgSpec.spec,
+  t/05_pkgspec_version.t: Added dev_version and update_release
+  methods
 
-* Tue Jun 03 2008 13:17 squinney
-- Added dev_version and update_release methods
+* Wed May 28 2008 11:29 squinney
+- Changes, lcfg.yml: Release: 0.0.12
 
-* Wed May 28 2008 12:29 squinney
+* Wed May 28 2008 11:27 squinney
+- Build.PL, META.yml, Makefile.PL, README, bin/lcfg-cfg2meta,
+  bin/lcfg-pkgcfg, lib/LCFG/Build/PkgSpec.pm,
+  perl-LCFG-Build-PkgSpec.spec: *** empty log message ***
 
-* Wed May 28 2008 12:27 squinney
-- [no log message]
+* Wed May 28 2008 11:24 squinney
+- Build.PL, perl-LCFG-Build-PkgSpec.spec: Updated dependencies on
+  Moose and MooseX::AttributeHelpers
 
-* Wed May 28 2008 12:24 squinney
-- Updated dependencies on Moose and MooseX::AttributeHelpers
+* Wed May 28 2008 11:17 squinney
+- perl-LCFG-Build-PkgSpec.spec: updated specfile
 
-* Wed May 28 2008 12:17 squinney
-- updated specfile
+* Wed May 28 2008 11:16 squinney
+- Changes, lcfg.yml: Release: 0.0.11
 
-* Wed May 28 2008 12:16 squinney
-
-* Wed May 28 2008 12:15 squinney
-- Renamed the smallest part of the version from 'level' to 'micro'.
-  Added ability to query the individual parts of the version. Added
-  an attribute to store the metafile name which can be used as a
+* Wed May 28 2008 11:15 squinney
+- Build.PL, META.yml, README, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg,
+  lib/LCFG/Build/PkgSpec.pm, t/05_pkgspec_version.t: Renamed the
+  smallest part of the version from 'level' to 'micro'. Added
+  ability to query the individual parts of the version. Added an
+  attribute to store the metafile name which can be used as a
   default when saving out the changed spec
 
-* Wed May 07 2008 11:46 squinney
-- version is now 0.0.10
+* Wed May 07 2008 10:46 squinney
+- Build.PL, META.yml, README, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg,
+  lib/LCFG/Build/PkgSpec.pm, perl-LCFG-Build-PkgSpec.spec: version
+  is now 0.0.10
 
-* Wed May 07 2008 11:45 squinney
+* Wed May 07 2008 10:45 squinney
+- Changes, lcfg.yml: Release: 0.0.10
 
-* Wed May 07 2008 11:45 squinney
-- Added new tarname() method and associated tests and docs
+* Wed May 07 2008 10:45 squinney
+- Build.PL, META.yml, README, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg,
+  lcfg.yml, lib/LCFG/Build/PkgSpec.pm,
+  perl-LCFG-Build-PkgSpec.spec, t/02_pkgspec_basic.t: Added new
+  tarname() method and associated tests and docs
 
-* Wed Apr 30 2008 15:29 squinney
-- Added fullname method
+* Wed Apr 30 2008 14:29 squinney
+- Build.PL, META.yml, README, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg,
+  lcfg.yml, lib/LCFG/Build/PkgSpec.pm,
+  perl-LCFG-Build-PkgSpec.spec, t/02_pkgspec_basic.t,
+  t/03_pkgspec_from_file.t, t/06_pkgspec_cfg.t: Added fullname
+  method
 
 * Thu Mar 06 2008 09:45 squinney
+- Build.PL, Changes, META.yml, README, bin/lcfg-cfg2meta,
+  bin/lcfg-pkgcfg, lcfg.yml, lib/LCFG/Build/PkgSpec.pm,
+  perl-LCFG-Build-PkgSpec.spec: Release: 0.0.7
 
 * Thu Mar 06 2008 09:40 squinney
-- Added support for dev versions
+- lib/LCFG/Build/PkgSpec.pm, t/05_pkgspec_version.t: Added support
+  for dev versions
 
 * Tue Mar 04 2008 10:06 squinney
+- Changes, lcfg.yml: Release: 0.0.6
 
 * Tue Mar 04 2008 10:06 squinney
-- Added support for setting a list of files to translate @FOO@
-  macros
+- Build.PL, META.yml, README, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg,
+  lib/LCFG/Build/PkgSpec.pm, perl-LCFG-Build-PkgSpec.spec: Added
+  support for setting a list of files to translate @FOO@ macros
 
 * Mon Mar 03 2008 12:09 squinney
+- Changes, lcfg.yml: Release: 0.0.5
 
 * Mon Mar 03 2008 12:08 squinney
-- new release number
+- Build.PL, META.yml, Makefile.PL, README, bin/lcfg-cfg2meta,
+  bin/lcfg-pkgcfg, lib/LCFG/Build/PkgSpec.pm,
+  perl-LCFG-Build-PkgSpec.spec: new release number
 
 * Mon Mar 03 2008 12:02 squinney
-- Improved error message when creating a new pkgspec object and a
-  required parameter is missing
+- lib/LCFG/Build/PkgSpec.pm, t/04_pkgspec_badattr.t: Improved error
+  message when creating a new pkgspec object and a required
+  parameter is missing
 
 * Mon Mar 03 2008 11:57 squinney
-- Minimum version for Moose is now 0.38. This allows the setting of
-  the release field as either undef or a validated string through
-  the Maybe[] type syntax. Various tests were also updated as the
-  error strings had changed slightly.
+- Build.PL, META.yml, Makefile.PL, lib/LCFG/Build/PkgSpec.pm,
+  t/05_pkgspec_version.t: Minimum version for Moose is now 0.38.
+  This allows the setting of the release field as either undef or a
+  validated string through the Maybe[] type syntax. Various tests
+  were also updated as the error strings had changed slightly.
 
 * Thu Feb 28 2008 12:09 squinney
+- Changes, lcfg.yml: Release: 0.0.4
 
 * Thu Feb 28 2008 12:08 squinney
-- Updated version
+- Build.PL, META.yml, README, bin/lcfg-pkgcfg, lcfg.yml,
+  lib/LCFG/Build/PkgSpec.pm, perl-LCFG-Build-PkgSpec.spec: Updated
+  version
 
 * Thu Feb 28 2008 12:08 squinney
-- Added new --set, --skeleton options to lcfg-pkgcfg. Also added
-  the ability to clone metadata files.
-
-* Thu Feb 28 2008 12:08 squinney
-- Added new --set, --skeleton options to lcfg-pkgcfg. Also added
-  the ability to clone metadata files.
+- bin/lcfg-cfg2meta: Added new --set, --skeleton options to
+  lcfg-pkgcfg. Also added the ability to clone metadata files.
 
 * Wed Feb 20 2008 14:03 squinney
+- Changes, lcfg.yml: Release: 0.0.3
 
 * Wed Feb 20 2008 14:02 squinney
-- Set version to 0.0.3
+- MANIFEST, META.yml, Makefile.PL, README, bin/lcfg-cfg2meta,
+  bin/lcfg-pkgcfg, lib/LCFG/Build/PkgSpec.pm,
+  perl-LCFG-Build-PkgSpec.spec: Set version to 0.0.3
 
 * Wed Feb 20 2008 14:02 squinney
-- Added dependency on Date::Format
-
-* Wed Feb 20 2008 14:02 squinney
-- Added dependency on Date::Format
+- Build.PL: Added dependency on Date::Format
 
 * Wed Feb 20 2008 13:52 squinney
+- Changes, lcfg.yml, perl-LCFG-Build-PkgSpec.spec: Release: 0.0.2
 
 * Wed Feb 20 2008 13:51 squinney
-- Added version control information to lcfg.yml
+- lcfg.yml: Added version control information to lcfg.yml
 
 * Wed Feb 20 2008 13:49 squinney
-- updated tests to deal with the new date attribute handling
+- t/03_pkgspec_from_file.t, t/05_pkgspec_version.t,
+  t/06_pkgspec_cfg.t, t/08_pkgspec_cfg2.t, t/expected.yml,
+  t/lcfg.yml: updated tests to deal with the new date attribute
+  handling
 
 * Wed Feb 20 2008 13:47 squinney
-- Improved date handling, it now defaults to 'DD/MM/YY HH:MM:SS'.
-  Added update_date() method and made the update_major,
-  update_minor and update_level methods use it
+- lib/LCFG/Build/PkgSpec.pm: Improved date handling, it now
+  defaults to 'DD/MM/YY HH:MM:SS'. Added update_date() method and
+  made the update_major, update_minor and update_level methods use
+  it
 
 * Wed Feb 20 2008 13:45 squinney
-- Added Changes file
+- Changes: Added Changes file
 
 * Tue Feb 19 2008 16:58 squinney
-- Added lcfg.yml
+- lcfg.yml: Added lcfg.yml
 
 * Tue Feb 19 2008 16:38 squinney
-- First release of LCFG::Build::PkgSpec
+- Build.PL, MANIFEST, MANIFEST.SKIP, META.yml, Makefile.PL, README,
+  bin, bin/lcfg-cfg2meta, bin/lcfg-pkgcfg, lib, lib/LCFG,
+  lib/LCFG/Build, lib/LCFG/Build/PkgSpec.pm,
+  perl-LCFG-Build-PkgSpec.spec, t, t/01_load.t,
+  t/02_pkgspec_basic.t, t/03_pkgspec_from_file.t,
+  t/04_pkgspec_badattr.t, t/05_pkgspec_version.t,
+  t/06_pkgspec_cfg.t, t/07_pkgspec_savemeta.t, t/08_pkgspec_cfg2.t,
+  t/config.mk, t/config2.mk, t/expected.yml, t/lcfg.yml: First
+  release of LCFG::Build::PkgSpec
+
+* Tue Feb 19 2008 16:38 
+- .: Standard project directories initialized by cvs2svn.
 
 

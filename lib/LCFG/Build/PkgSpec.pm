@@ -2,20 +2,20 @@ package LCFG::Build::PkgSpec; # -*-cperl-*-
 use strict;
 use warnings;
 
-# $Id: PkgSpec.pm.in,v 1.6 2008/11/12 14:24:46 squinney Exp $
-# $Source: /disk/cvs/dice/LCFG-Build-PkgSpec/lib/LCFG/Build/PkgSpec.pm.in,v $
-# $Revision: 1.6 $
-# $HeadURL$
-# $Date: 2008/11/12 14:24:46 $
+# $Id: PkgSpec.pm.in 3581 2009-03-13 14:53:04Z squinney@INF.ED.AC.UK $
+# $Source: /var/cvs/dice/LCFG-Build-PkgSpec/lib/LCFG/Build/PkgSpec.pm.in,v $
+# $Revision: 3581 $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_29/lib/LCFG/Build/PkgSpec.pm.in $
+# $Date: 2009-03-13 14:53:04 +0000 (Fri, 13 Mar 2009) $
 
-our $VERSION = '0.0.26';
+our $VERSION = '0.0.29';
 
 use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::AttributeHelpers;
 
 use Data::Structure::Util qw(unbless);
-use Date::Format ();
+use DateTime ();
 use IO::File ();
 use Scalar::Util qw(blessed);
 
@@ -71,7 +71,7 @@ has 'translate' => (
 has 'date' => (
     is         => 'rw',
     isa        => 'Str',
-    default    => Date::Format::time2str( '%c', time ),
+    default    => DateTime->now->strftime('%D %T'),
 );
 
 has 'metafile' => (
@@ -293,7 +293,7 @@ sub new_from_cfgmk {
     if ( !ref $proto ) {
         $spec{license} = 'GPLv2';
         $spec{vendor} ||= 'University of Edinburgh';
-        $spec{vcs} = { type => 'CVS', logname => 'ChangeLog' };
+        $spec{vcs} = { logname => 'ChangeLog' };
         $spec{build} = { gencmake => 1 };
         $spec{translate} = [ '*.cin' ];
         $pkgspec = $proto->new(\%spec);
@@ -365,7 +365,7 @@ sub update_release {
 sub update_date {
     my ($self) = @_;
 
-    my $now = Date::Format::time2str( '%c', time );
+    my $now = DateTime->now->strftime('%D %T');
 
     $self->date($now);
 
@@ -447,7 +447,7 @@ LCFG::Build::PkgSpec - Object-oriented interface to LCFG build metadata
 
 =head1 VERSION
 
-This documentation refers to LCFG::Build::PkgSpec version 0.0.26
+This documentation refers to LCFG::Build::PkgSpec version 0.0.29
 
 =head1 SYNOPSIS
 
@@ -708,9 +708,9 @@ in the build information.
 
 =head1 DEPENDENCIES
 
-This module is L<Moose> powered. It also requires L<Data::Structure::Util>
-and if you want to parse and write LCFG metadata files you will need
-L<YAML::Syck>.
+This module is L<Moose> powered. It also requires
+L<Data::Structure::Util>, L<DateTime> and if you want to parse and
+write LCFG metadata files you will need L<YAML::Syck>.
 
 =head1 SEE ALSO
 
@@ -736,7 +736,7 @@ Stephen Quinney <squinney@inf.ed.ac.uk>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (C) 2008 University of Edinburgh. All rights reserved.
+Copyright (C) 2008-2009 University of Edinburgh. All rights reserved.
 
 This library is free software; you can redistribute it and/or modify
 it under the terms of the GPL, version 2 or later.

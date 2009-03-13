@@ -1,7 +1,7 @@
-use strict; # -*-cperl-*-*
+use strict; # -*-perl-*-*
 use warnings;
 
-use Test::More tests => 38;
+use Test::More tests => 34;
 use Test::Exception;
 
 BEGIN { use_ok( 'LCFG::Build::PkgSpec' ); }
@@ -44,11 +44,7 @@ for my $file (@files) {
 
     my @keys = sort $spec->ids_in_vcsinfo;
 
-    is_deeply( \@keys, [qw/logname type/], 'vcs info contains the correct keys' );
-
-    is( $spec->exists_in_vcsinfo('type'), 1, 'VCS type is specified' );
-
-    is ( $spec->get_vcsinfo('type'), 'CVS', 'VCS type is correct' );
+    is_deeply( \@keys, [qw/logname/], 'vcs info contains the correct keys' );
 
 }
 
