@@ -2,28 +2,45 @@ package LCFG::Build::PkgSpec; # -*-cperl-*-
 use strict;
 use warnings;
 
-# $Id: PkgSpec.pm.in 3581 2009-03-13 14:53:04Z squinney@INF.ED.AC.UK $
+# $Id: PkgSpec.pm.in 15875 2011-02-14 16:45:31Z squinney@INF.ED.AC.UK $
 # $Source: /var/cvs/dice/LCFG-Build-PkgSpec/lib/LCFG/Build/PkgSpec.pm.in,v $
-# $Revision: 3581 $
-# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_29/lib/LCFG/Build/PkgSpec.pm.in $
-# $Date: 2009-03-13 14:53:04 +0000 (Fri, 13 Mar 2009) $
+# $Revision: 15875 $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_32/lib/LCFG/Build/PkgSpec.pm.in $
+# $Date: 2011-02-14 16:45:31 +0000 (Mon, 14 Feb 2011) $
 
-our $VERSION = '0.0.29';
+our $VERSION = '0.0.32';
+
+use Data::Structure::Util ();
+use DateTime ();
+use Email::Address ();
+use Email::Valid   ();
+use IO::File ();
+use Scalar::Util ();
 
 use Moose;
 use Moose::Util::TypeConstraints;
-use MooseX::AttributeHelpers;
-
-use Data::Structure::Util qw(unbless);
-use DateTime ();
-use IO::File ();
-use Scalar::Util qw(blessed);
 
 # A type and coercion to allow the attribute to be set as either an
 # ref to an array or a scalar string.
 
 subtype 'ArrayRefOrString' => as 'ArrayRef[Str]';
 coerce  'ArrayRefOrString' => from 'Str' => via { [ split /\s*,\s*/, $_ ] };
+
+subtype 'EmailAddress'
+      => as 'Str'
+      => where { Email::Valid->address( -address => $_ ) }
+      => message { "Address ($_) for report must be a valid email address" };
+
+subtype 'EmailAddressList'
+      => as 'ArrayRef[EmailAddress]';
+
+coerce 'EmailAddressList'
+      => from 'Str'
+      => via { [ map { $_->format } Email::Address->parse($_)] };
+
+coerce 'EmailAddressList'
+      => from 'ArrayRef'
+      => via { [ map { $_->format } map { Email::Address->parse($_) } @{$_} ] };
 
 subtype 'VersionString'
       => as 'Str'
@@ -71,7 +88,7 @@ has 'translate' => (
 has 'date' => (
     is         => 'rw',
     isa        => 'Str',
-    default    => DateTime->now->strftime('%D %T'),
+    default    => sub { DateTime->now->strftime('%d/%m/%y %T') },
 );
 
 has 'metafile' => (
@@ -84,7 +101,7 @@ has 'metafile' => (
 
 has 'author' => (
     is         => 'rw',
-    isa        => 'ArrayRefOrString',
+    isa        => 'EmailAddressList',
     coerce     => 1,
     auto_deref => 1,
     default    => sub { [] },
@@ -99,34 +116,33 @@ has 'platforms' => (
 );
 
 has 'build' => (
+    traits     => ['Hash'],
     is         => 'rw',
-    metaclass  => 'Collection::Hash',
     isa        => 'HashRef[Str]',
     default    => sub { {} },
     lazy       => 1,
-    provides   => {
-       exists    => 'exists_in_buildinfo',
-       keys      => 'ids_in_buildinfo',
-       get       => 'get_buildinfo',
-       set       => 'set_buildinfo',
+    handles   => {
+       exists_in_buildinfo => 'exists',
+       ids_in_buildinfo    => 'keys',
+       get_buildinfo       => 'get',
+       set_buildinfo       => 'set',
     },
 );
 
 has 'vcs' => (
+    traits     => ['Hash'],
     is         => 'rw',
-    metaclass  => 'Collection::Hash',
     isa        => 'HashRef[Str]',
     default    => sub { {} },
-    provides   => {
-       exists    => 'exists_in_vcsinfo',
-       keys      => 'ids_in_vcsinfo',
-       get       => 'get_vcsinfo',
-       set       => 'set_vcsinfo',
+    handles   => {
+       exists_in_vcsinfo => 'exists',
+       ids_in_vcsinfo    => 'keys',
+       get_vcsinfo       => 'get',
+       set_vcsinfo       => 'set',
     },
 );
 
-# This should give a speed-up in loading
-
+no Moose;
 __PACKAGE__->meta->make_immutable;
 
 sub get_major {
@@ -216,7 +232,7 @@ sub new_from_metafile {
         # blessing. We want all input files treated with the same
         # amount of contempt.
 
-        unbless $data;
+        Data::Structure::Util::unbless($data);
     }
 
     my $self = $class->new($data);
@@ -298,7 +314,7 @@ sub new_from_cfgmk {
         $spec{translate} = [ '*.cin' ];
         $pkgspec = $proto->new(\%spec);
     }
-    elsif ( defined blessed $proto && $proto->isa(__PACKAGE__) ) {
+    elsif ( defined Scalar::Util::blessed($proto) && $proto->isa(__PACKAGE__) ) {
         $pkgspec = $proto;
         for my $key ( keys %spec ) {
             $pkgspec->$key($spec{$key});
@@ -365,7 +381,7 @@ sub update_release {
 sub update_date {
     my ($self) = @_;
 
-    my $now = DateTime->now->strftime('%D %T');
+    my $now = DateTime->now->strftime('%d/%m/%y %T');
 
     $self->date($now);
 
@@ -437,7 +453,6 @@ sub _update_version {
     return;
 }
 
-no Moose;
 1;
 __END__
 
@@ -447,7 +462,7 @@ LCFG::Build::PkgSpec - Object-oriented interface to LCFG build metadata
 
 =head1 VERSION
 
-This documentation refers to LCFG::Build::PkgSpec version 0.0.29
+This documentation refers to LCFG::Build::PkgSpec version 0.0.32
 
 =head1 SYNOPSIS
 

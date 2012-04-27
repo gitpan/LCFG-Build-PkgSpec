@@ -1,6 +1,48 @@
-2009-03-13  SVN: new release
+2011-02-14  SVN: new release
 
-	* Release: 0.0.29
+	* Release: 0.0.32
+
+2011-02-14 16:57  squinney@INF.ED.AC.UK
+
+	* LCFG-Build-PkgSpec.spec: Fixed build-requires for new
+	  Email::Address and Email::Valid dependencies
+
+2011-02-14 16:52  squinney@INF.ED.AC.UK
+
+	* Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.31
+
+2011-02-14 16:45  squinney@INF.ED.AC.UK
+
+	* Build.PL.in, META.yml.in, Makefile.PL,
+	  lib/LCFG/Build/PkgSpec.pm.in, t/06_pkgspec_cfg.t: Switched to
+	  using Native Traits so we can drop the dependency on the
+	  deprecated AttributeHelpers module. Switched the email address
+	  list handling for the authors field to Email::Address &
+	  Email::Valid (new deps)
+
+2011-02-14 16:41  squinney@INF.ED.AC.UK
+
+	* Build.PL.in, MANIFEST, META.yml.in, Makefile.PL: Updated
+	  dependency list, meta-data and build scripts
+
+2011-02-14 15:55  squinney@INF.ED.AC.UK
+
+	* t/10_pkgspec_date.t: fixed date spec tests so they always work
+
+2010-11-19 10:43  squinney@INF.ED.AC.UK
+
+	* Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.30
+
+2010-11-19 10:43  squinney@INF.ED.AC.UK
+
+	* lcfg.yml, lib/LCFG/Build/PkgSpec.pm.in, t/10_pkgspec_date.t:
+	  Fixed the date formatting so that it is DD/MM/YY and not the
+	  American style of MM/DD/YY. Also added tests so this does not
+	  happen again
+
+2009-03-13 15:14  squinney@INF.ED.AC.UK
+
+	* Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.29
 
 2009-03-13 14:53  squinney@INF.ED.AC.UK
 

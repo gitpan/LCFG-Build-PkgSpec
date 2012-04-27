@@ -38,7 +38,7 @@ for my $file (@files) {
 
     # author, platforms
 
-    is_deeply( [$spec->author()], ['Stephen Quinney <squinney@inf.ed.ac.uk>'], 'author accessor' );
+    is_deeply( [$spec->author()], ['"Stephen Quinney" <squinney@inf.ed.ac.uk>'], 'author accessor' );
 
     is_deeply( [$spec->platforms()], [qw/Fedora5 Fedora6 ScientificLinux5/], 'platforms accessor' );
 

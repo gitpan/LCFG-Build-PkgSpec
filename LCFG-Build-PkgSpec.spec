@@ -1,24 +1,23 @@
 Name:           perl-LCFG-Build-PkgSpec
-Version:        0.0.29
+Version:        0.0.32
 Release:        1
 Summary:        Object-oriented interface to LCFG build metadata
 License:        GPLv2
 Group:          Development/Libraries
-Source0:        LCFG-Build-PkgSpec-0.0.29.tar.gz
+Source0:        LCFG-Build-PkgSpec-0.0.32.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  perl >= 1:5.6.1
 BuildRequires:  perl(Data::Structure::Util) >= 0.12
 BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(Moose) >= 0.57
-BuildRequires:  perl(MooseX::AttributeHelpers) >= 0.13
+BuildRequires:  perl(Moose) >= 0.98
 BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(YAML::Syck) >= 0.98
 BuildRequires:  perl(DateTime)
+BuildRequires:  perl(Email::Address), perl(Email::Valid)
 Requires:       perl(Data::Structure::Util) >= 0.12
-Requires:       perl(Moose) >= 0.57
-Requires:       perl(MooseX::AttributeHelpers) >= 0.13
+Requires:       perl(Moose) >= 0.98
 Requires:       perl(YAML::Syck) >= 0.98
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
@@ -67,7 +66,42 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Fri Mar 13 2009 SVN: new release
+* Mon Feb 14 2011 SVN: new release
+- Release: 0.0.32
+
+* Mon Feb 14 2011 16:57 squinney@INF.ED.AC.UK
+- LCFG-Build-PkgSpec.spec: Fixed build-requires for new
+  Email::Address and Email::Valid dependencies
+
+* Mon Feb 14 2011 16:52 squinney@INF.ED.AC.UK
+- Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.31
+
+* Mon Feb 14 2011 16:45 squinney@INF.ED.AC.UK
+- Build.PL.in, META.yml.in, Makefile.PL,
+  lib/LCFG/Build/PkgSpec.pm.in, t/06_pkgspec_cfg.t: Switched to
+  using Native Traits so we can drop the dependency on the
+  deprecated AttributeHelpers module. Switched the email address
+  list handling for the authors field to Email::Address &
+  Email::Valid (new deps)
+
+* Mon Feb 14 2011 16:41 squinney@INF.ED.AC.UK
+- Build.PL.in, MANIFEST, META.yml.in, Makefile.PL: Updated
+  dependency list, meta-data and build scripts
+
+* Mon Feb 14 2011 15:55 squinney@INF.ED.AC.UK
+- t/10_pkgspec_date.t: fixed date spec tests so they always work
+
+* Fri Nov 19 2010 10:43 squinney@INF.ED.AC.UK
+- Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.30
+
+* Fri Nov 19 2010 10:43 squinney@INF.ED.AC.UK
+- lcfg.yml, lib/LCFG/Build/PkgSpec.pm.in, t/10_pkgspec_date.t:
+  Fixed the date formatting so that it is DD/MM/YY and not the
+  American style of MM/DD/YY. Also added tests so this does not
+  happen again
+
+* Fri Mar 13 2009 15:14 squinney@INF.ED.AC.UK
+- Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.29
 
 * Fri Mar 13 2009 14:53 squinney@INF.ED.AC.UK
 - Build.PL.in, LCFG-Build-PkgSpec.spec, META.yml.in, Makefile.PL,
