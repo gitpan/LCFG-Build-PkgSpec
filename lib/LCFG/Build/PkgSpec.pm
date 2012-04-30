@@ -1,14 +1,14 @@
-package LCFG::Build::PkgSpec; # -*-cperl-*-
+package LCFG::Build::PkgSpec; # -*-perl-*-
 use strict;
 use warnings;
 
-# $Id: PkgSpec.pm.in 15875 2011-02-14 16:45:31Z squinney@INF.ED.AC.UK $
+# $Id: PkgSpec.pm.in 20799 2012-04-30 13:47:10Z squinney@INF.ED.AC.UK $
 # $Source: /var/cvs/dice/LCFG-Build-PkgSpec/lib/LCFG/Build/PkgSpec.pm.in,v $
-# $Revision: 15875 $
-# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_32/lib/LCFG/Build/PkgSpec.pm.in $
-# $Date: 2011-02-14 16:45:31 +0000 (Mon, 14 Feb 2011) $
+# $Revision: 20799 $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_34/lib/LCFG/Build/PkgSpec.pm.in $
+# $Date: 2012-04-30 14:47:10 +0100 (Mon, 30 Apr 2012) $
 
-our $VERSION = '0.0.32';
+our $VERSION = '0.0.34';
 
 use Data::Structure::Util ();
 use DateTime ();
@@ -142,6 +142,12 @@ has 'vcs' => (
     },
 );
 
+has 'orgident' => (
+    is      => 'rw',
+    isa     => 'Str',
+    default => 'org.lcfg'
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
@@ -176,6 +182,16 @@ sub get_micro {
     my $micro = (split /\./, $version)[2];
 
     return $micro;
+}
+
+sub pkgident {
+  my ($self) = @_;
+
+  my $org  = $self->orgident;
+  my $name = $self->fullname;
+  my $id = join q{.}, $org, $name;
+
+  return $id;
 }
 
 sub fullname {
@@ -462,7 +478,7 @@ LCFG::Build::PkgSpec - Object-oriented interface to LCFG build metadata
 
 =head1 VERSION
 
-This documentation refers to LCFG::Build::PkgSpec version 0.0.32
+This documentation refers to LCFG::Build::PkgSpec version 0.0.34
 
 =head1 SYNOPSIS
 
@@ -550,6 +566,15 @@ value.
 This matches the "Vendor" field used in RPMs, it is optional and has
 no default value.
 
+=item orgident
+
+This is an identifier for your organisation which is based on the
+reversed form of your domain name, C<com.example> or C<org.example>
+for example. No validation is done to check if this is the reversal of
+a real domain name, you can use whatever you want, the default value
+is C<org.lcfg>. This is used by the C<pkgident> method as part of the
+process of generating MacOSX packages.
+
 =item license
 
 This is the short string used in RPMs to specify the license for the
@@ -596,6 +621,13 @@ Returns the full name of the package, if the 'base' attribute is
 specified then this will be a combination of base and package name
 separated with a hyphen, e.g. 'lcfg-foo'. If no base is specified then
 this is just the package name, e.g. 'foo'.
+
+=item pkgident
+
+This returns a string formed by the concatenation of the C<orgident>
+and C<fullname> values, joined with a period character,
+C<com.example.lcfg-client> for example. This is used as the identifier
+name for MacOSX packages.
 
 =item tarname
 

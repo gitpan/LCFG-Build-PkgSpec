@@ -1,6 +1,28 @@
-2011-02-14  SVN: new release
+2012-04-30  SVN: new release
 
-	* Release: 0.0.32
+	* Release: 0.0.34
+
+2012-04-30 13:49  squinney@INF.ED.AC.UK
+
+	* lcfg.yml, t/expected.yml: Updated test for new attribute
+
+2012-04-30 13:47  squinney@INF.ED.AC.UK
+
+	* Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.33
+
+2012-04-30 13:47  squinney@INF.ED.AC.UK
+
+	* bin/lcfg-pkgcfg.in, lib/LCFG/Build/PkgSpec.pm.in: Added new
+	  orgident attribute and pkgident method. These are used for MacOSX
+	  packaging
+
+2011-02-14 17:05  squinney@INF.ED.AC.UK
+
+	* README: updated README
+
+2011-02-14 16:57  squinney@INF.ED.AC.UK
+
+	* Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.32
 
 2011-02-14 16:57  squinney@INF.ED.AC.UK
 

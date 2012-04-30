@@ -2,18 +2,18 @@
 use strict;
 use warnings;
 
-# $Id: lcfg-pkgcfg.in 3445 2009-03-11 13:25:36Z squinney@INF.ED.AC.UK $
+# $Id: lcfg-pkgcfg.in 20799 2012-04-30 13:47:10Z squinney@INF.ED.AC.UK $
 # $Source: /var/cvs/dice/LCFG-Build-PkgSpec/bin/lcfg-pkgcfg.in,v $
-# $Revision: 3445 $
-# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_32/bin/lcfg-pkgcfg.in $
-# $Date: 2009-03-11 13:25:36 +0000 (Wed, 11 Mar 2009) $
+# $Revision: 20799 $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_34/bin/lcfg-pkgcfg.in $
+# $Date: 2012-04-30 14:47:10 +0100 (Mon, 30 Apr 2012) $
 
 use LCFG::Build::PkgSpec;
 use File::Spec ();
 use Getopt::Long ();
 use Pod::Usage ();
 
-our $VERSION = '0.0.32';
+our $VERSION = '0.0.34';
 
 my ( $get, %set, $in, $out, $skeleton, $help );
 Getopt::Long::GetOptions('get=s'    => \$get,
@@ -102,7 +102,7 @@ lcfg-pkgcfg - A tool for querying LCFG build metadata files
 
 =head1 VERSION
 
-This documentation refers to lcfg-reltool version 0.0.32
+This documentation refers to lcfg-reltool version 0.0.34
 
 =head1 SYNOPSIS
 
@@ -227,7 +227,7 @@ Stephen Quinney <squinney@inf.ed.ac.uk>
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (C) 2008 University of Edinburgh. All rights reserved.
+Copyright (C) 2008-2012 University of Edinburgh. All rights reserved.
 
 This library is free software; you can redistribute it and/or modify
 it under the terms of the GPL, version 2 or later.

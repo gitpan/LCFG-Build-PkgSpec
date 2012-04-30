@@ -30,8 +30,9 @@ To use this module you will need the following:
 
         DateTime
         Data::Structure::Util >= 0.12
-        Moose >= 0.57
-        MooseX::AttributeHelpers >= 0.13
+        Email::Address
+        Email::Valid
+        Moose >= 0.98
         YAML::Syck >= 0.98
 
 ==== INSTALLATION ====
@@ -108,7 +109,7 @@ Stephen Quinney <squinney@inf.ed.ac.uk>
 
 ==== COPYRIGHT AND LICENCE ====
 
-Copyright (C) 2008 University of Edinburgh
+Copyright (C) 2008-2011 University of Edinburgh
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the GPL, version 2 or later.
