@@ -5,10 +5,10 @@ use warnings;
 # $Id: PkgSpec.pm.in 20799 2012-04-30 13:47:10Z squinney@INF.ED.AC.UK $
 # $Source: /var/cvs/dice/LCFG-Build-PkgSpec/lib/LCFG/Build/PkgSpec.pm.in,v $
 # $Revision: 20799 $
-# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_34/lib/LCFG/Build/PkgSpec.pm.in $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_36/lib/LCFG/Build/PkgSpec.pm.in $
 # $Date: 2012-04-30 14:47:10 +0100 (Mon, 30 Apr 2012) $
 
-our $VERSION = '0.0.34';
+our $VERSION = '0.0.36';
 
 use Data::Structure::Util ();
 use DateTime ();
@@ -478,7 +478,7 @@ LCFG::Build::PkgSpec - Object-oriented interface to LCFG build metadata
 
 =head1 VERSION
 
-This documentation refers to LCFG::Build::PkgSpec version 0.0.34
+This documentation refers to LCFG::Build::PkgSpec version 0.0.36
 
 =head1 SYNOPSIS
 
@@ -769,7 +769,7 @@ This is the list of platforms on which we have tested this
 software. We expect this software to work on any Unix-like platform
 which is supported by Perl.
 
-FedoraCore5, FedoraCore6, ScientificLinux5
+ScientificLinux5, ScientificLinux6
 
 =head1 BUGS AND LIMITATIONS
 

@@ -1,10 +1,10 @@
 Name:           perl-LCFG-Build-PkgSpec
-Version:        0.0.34
+Version:        0.0.36
 Release:        1
 Summary:        Object-oriented interface to LCFG build metadata
 License:        GPLv2
 Group:          Development/Libraries
-Source0:        LCFG-Build-PkgSpec-0.0.34.tar.gz
+Source0:        LCFG-Build-PkgSpec-0.0.36.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  perl >= 1:5.6.1
@@ -66,8 +66,23 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Mon Apr 30 2012 SVN: new release
-- Release: 0.0.34
+* Tue Jan 22 2013 SVN: new release
+- Release: 0.0.36
+
+* Tue Jan 22 2013 14:19 squinney@INF.ED.AC.UK
+- bin/lcfg-pkgcfg.in: Reworked the get code some more so that
+  lookups for unsupported attributes give a different error code.
+  Also tidied the code slightly to appease perlcritic
+
+* Tue Jan 22 2013 12:03 squinney@INF.ED.AC.UK
+- Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.35
+
+* Tue Jan 22 2013 12:03 squinney@INF.ED.AC.UK
+- bin/lcfg-pkgcfg.in, lcfg.yml: Added support for accessing values
+  stored in hashes
+
+* Mon Apr 30 2012 13:49 squinney@INF.ED.AC.UK
+- Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.34
 
 * Mon Apr 30 2012 13:49 squinney@INF.ED.AC.UK
 - lcfg.yml, t/expected.yml: Updated test for new attribute

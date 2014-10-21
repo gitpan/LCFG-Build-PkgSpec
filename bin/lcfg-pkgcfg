@@ -2,18 +2,18 @@
 use strict;
 use warnings;
 
-# $Id: lcfg-pkgcfg.in 20799 2012-04-30 13:47:10Z squinney@INF.ED.AC.UK $
+# $Id: lcfg-pkgcfg.in 22420 2013-01-22 14:19:52Z squinney@INF.ED.AC.UK $
 # $Source: /var/cvs/dice/LCFG-Build-PkgSpec/bin/lcfg-pkgcfg.in,v $
-# $Revision: 20799 $
-# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_34/bin/lcfg-pkgcfg.in $
-# $Date: 2012-04-30 14:47:10 +0100 (Mon, 30 Apr 2012) $
+# $Revision: 22420 $
+# $HeadURL: https://svn.lcfg.org/svn/source/tags/LCFG-Build-PkgSpec/LCFG_Build_PkgSpec_0_0_36/bin/lcfg-pkgcfg.in $
+# $Date: 2013-01-22 14:19:52 +0000 (Tue, 22 Jan 2013) $
 
 use LCFG::Build::PkgSpec;
 use File::Spec ();
 use Getopt::Long ();
 use Pod::Usage ();
 
-our $VERSION = '0.0.34';
+our $VERSION = '0.0.36';
 
 my ( $get, %set, $in, $out, $skeleton, $help );
 Getopt::Long::GetOptions('get=s'    => \$get,
@@ -31,7 +31,7 @@ if ( $help ) {
 }
 
 if ( !defined $in ) {
-    $in = '.';
+    $in = q{.};
 }
 
 my $infile;
@@ -78,19 +78,35 @@ if ( $updates || $infile ne $outfile ) {
 }
 
 if ( defined $get ) {
-    my $value = $spec->$get;
-    if ( !defined $value ) {
-        die "Error: undefined value for $get\n";
+    my ( $key, @subkeys ) = split /\./, $get;
+
+    my $value = eval { return $spec->$key };
+
+    if ( $@ ) {
+      warn "Failed to fetch value for '$get': Unsupported attribute\n";
+      exit 2;
     }
-    elsif ( length ref $value == 0 ) {
-        print "$value\n";
-    }
-    elsif ( ref $value eq 'ARRAY' ) {
-        $value = join ', ', @{$value};
-        print "$value\n";
-    }
-    else {
-        die "Error: Cannot show complex data type.\n";
+
+    my $val = eval {
+        if ( ref $value ) {
+            if ( ref $value eq 'HASH' ) {
+                for my $key (@subkeys) {
+                    $value = $value->{$key}
+                }
+            }
+
+            if ( ref $value eq 'ARRAY' ) {
+                $value = join ', ', @{$value};
+            }
+        }
+        return $value;
+    };
+
+    if ( !$@ && defined $val ) {
+        print $val . "\n";
+    } else {
+      warn "Failed to fetch value for '$get': $@\n";
+      exit 3;
     }
 }
 
@@ -102,15 +118,17 @@ lcfg-pkgcfg - A tool for querying LCFG build metadata files
 
 =head1 VERSION
 
-This documentation refers to lcfg-reltool version 0.0.34
+This documentation refers to lcfg-reltool version 0.0.36
 
-=head1 SYNOPSIS
+=head1 USAGE
 
     lcfg-pkgcfg --get=name
 
     lcfg-pkgcfg --get=name --in ~/cvs/lcfg-foo
 
     lcfg-pkgcfg --get=name --in ~/cvs/lcfg-foo/lcfg.yml
+
+    lcfg-pkgcfg --get=vcs.genchangelog
 
     lcfg-pkgcfg --set schema=2 --set license=gpl
 
@@ -162,7 +180,11 @@ Specify the name of the attribute to query. See
 L<LCFG::Build::PkgSpec> for the full list of attributes. Attributes
 which are stored as arrays, such as the author and platforms lists,
 will be flattened to a string (e.g. "fedora5, fedora6,
-scientificlinux5").
+scientificlinux5"). It is possible to query the values stored in a
+hash by joining the key names with a period (C<.>). For example
+C<vcs.genchangelog> or C<build.gencmake>, you can access any hash
+element as deep as you like. If the value of an element is an array it
+will be stringified as described above.
 
 =item --set
 
@@ -194,6 +216,13 @@ project.
 There are no other separate configuration files and no environment
 variables need to be altered.
 
+=head1 EXIT STATUS
+
+When attempting to fetch the value for an attribute, if it is not part
+of the L<LCFG::Build::PkgSpec> API the exit status will be 2. If the
+lookup fails for any other reason the script will exit with an error
+status of 3. Any other error will result in a non-zero exit status.
+
 =head1 DEPENDENCIES
 
 This application requires L<LCFG::Build::PkgSpec>
@@ -208,7 +237,7 @@ This is the list of platforms on which we have tested this
 software. We expect this software to work on any Unix-like platform
 which is supported by Perl.
 
-FedoraCore5, FedoraCore6, ScientificLinux5
+ScientificLinux5, ScientificLinux6
 
 =head1 BUGS AND LIMITATIONS
 
@@ -225,9 +254,9 @@ welcome.
 
 Stephen Quinney <squinney@inf.ed.ac.uk>
 
-=head1 LICENCE AND COPYRIGHT
+=head1 LICENSE AND COPYRIGHT
 
-Copyright (C) 2008-2012 University of Edinburgh. All rights reserved.
+Copyright (C) 2008-2013 University of Edinburgh. All rights reserved.
 
 This library is free software; you can redistribute it and/or modify
 it under the terms of the GPL, version 2 or later.

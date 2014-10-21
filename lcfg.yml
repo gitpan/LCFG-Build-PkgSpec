@@ -7,13 +7,13 @@ build:
   gencmake: 0
   remove_input_after_translate: 1
   translate_before_pack: 1
-date: 30/04/12 13:49:54
+date: 22/01/13 14:20:00
 license: GPLv2
 name: LCFG-Build-PkgSpec
+orgident: org.lcfg
 platforms: 
-  - FedoraCore5
-  - FedoraCore6
   - ScientificLinux5
+  - ScientificLinux6
 release: 1
 schema: 1
 translate: 
@@ -21,4 +21,4 @@ translate:
 vcs: 
   genchangelog: 1
   logname: Changes
-version: 0.0.34
+version: 0.0.36

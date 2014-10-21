@@ -1,6 +1,25 @@
-2012-04-30  SVN: new release
+2013-01-22  SVN: new release
 
-	* Release: 0.0.34
+	* Release: 0.0.36
+
+2013-01-22 14:19  squinney@INF.ED.AC.UK
+
+	* bin/lcfg-pkgcfg.in: Reworked the get code some more so that
+	  lookups for unsupported attributes give a different error code.
+	  Also tidied the code slightly to appease perlcritic
+
+2013-01-22 12:03  squinney@INF.ED.AC.UK
+
+	* Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.35
+
+2013-01-22 12:03  squinney@INF.ED.AC.UK
+
+	* bin/lcfg-pkgcfg.in, lcfg.yml: Added support for accessing values
+	  stored in hashes
+
+2012-04-30 13:49  squinney@INF.ED.AC.UK
+
+	* Changes, lcfg.yml: LCFG-Build-PkgSpec release: 0.0.34
 
 2012-04-30 13:49  squinney@INF.ED.AC.UK
 
